@@ -14,11 +14,26 @@ exports.load = function(req, res, next, quizId) {
 
 // GET /quizes
 exports.index = function(req, res) {
-	models.Quiz.findAll().then(
-		function(quizes) {
-			res.render('quizes/index.ejs', { quizes: quizes});
-		}
-	).catch(function(error) { next(error);})
+	
+	if(req.query.search){
+		var search = "%"+req.query.search+"%";
+		search = search.trim().replace(/\s/g,"%");
+		search = search.toUpperCase();
+		console.log("llego aqui 1");
+		models.Quiz.findAll({where: ["upper(pregunta) like ?", search], order: 'pregunta ASC'}).then(
+			function(quizes) {
+				res.render('quizes/index.ejs', { quizes: quizes});
+			}
+		).catch(function(error) { next(error);})
+	}
+	else{
+		console.log("llego aqui 2");
+		models.Quiz.findAll().then(
+			function(quizes) {
+				res.render('quizes/index.ejs', { quizes: quizes});
+			}
+		).catch(function(error) { next(error);})
+	}
 };
 
 // GET /quizes/:id
@@ -29,7 +44,7 @@ exports.show = function(req, res) {
 // GET /quizes/:id/answer
 exports.answer = function(req, res) {
 	var resultado = 'Incorrecto, "'+req.query.respuesta+'" no es la respuesta correcta';
-	if (req.query.respuesta === req.quiz.respuesta){
+	if ((req.query.respuesta).toUpperCase() === (req.quiz.respuesta).toUpperCase()){
 		resultado = 'Correcto';
 	}
 	res.render('quizes/answer', { quiz: req.quiz, respuesta: resultado});
