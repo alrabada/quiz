@@ -34,3 +34,12 @@ header, nav, section, footer {
 nav span {
 	margin: 0px 10px 0px 0px;
 }
+
+div.centraTabla{
+text-align: center;
+}
+
+div.centraTabla table {
+margin: 0 auto;
+text-align: left;
+}
