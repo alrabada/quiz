@@ -22,7 +22,7 @@ exports.index = function(req, res) {
 		console.log("llego aqui 1");
 		models.Quiz.findAll({where: ["upper(pregunta) like ?", search], order: 'pregunta ASC'}).then(
 			function(quizes) {
-				res.render('quizes/index.ejs', { quizes: quizes});
+				res.render('quizes/index.ejs', { quizes: quizes, errors: []});
 			}
 		).catch(function(error) { next(error);})
 	}
@@ -30,7 +30,7 @@ exports.index = function(req, res) {
 		console.log("llego aqui 2");
 		models.Quiz.findAll().then(
 			function(quizes) {
-				res.render('quizes/index.ejs', { quizes: quizes});
+				res.render('quizes/index.ejs', { quizes: quizes, errors: []});
 			}
 		).catch(function(error) { next(error);})
 	}
@@ -38,7 +38,7 @@ exports.index = function(req, res) {
 
 // GET /quizes/:id
 exports.show = function(req, res) {
-	res.render('quizes/show', { quiz: req.quiz});
+	res.render('quizes/show', { quiz: req.quiz, errors: []});
 };
 
 // GET /quizes/:id/answer
@@ -47,7 +47,7 @@ exports.answer = function(req, res) {
 	if ((req.query.respuesta).toUpperCase() === (req.quiz.respuesta).toUpperCase()){
 		resultado = 'Correcto';
 	}
-	res.render('quizes/answer', { quiz: req.quiz, respuesta: resultado});
+	res.render('quizes/answer', { quiz: req.quiz, respuesta: resultado, errors: []});
 };
 
 // GET /quizes/new
@@ -55,14 +55,24 @@ exports.new = function(req,res){
 	var quiz = models.Quiz.build( 
 	{pregunta: "Pregunta", respuesta: "Respuesta"} //crea el objeto quiz
 	);
-	res.render('quizes/new',{quiz: quiz});
+	res.render('quizes/new',{quiz: quiz, errors: []});
 };
 
 // POST /quizes/create
 exports.create = function(req,res){
 	var quiz = models.Quiz.build( req.body.quiz);
-	//guarda en DB
-	quiz.save({fields: ["pregunta", "respuesta"]}).then(function(){
-	res.redirect('/quizes'); //redireccion a quizes
-	})
+	quiz.validate()
+	.then(
+		function(err){
+			if(err){
+				res.render('quizes/new',{quiz: quiz, errors: err.errors});
+			}
+			else{
+				//guarda en DB
+				quiz.save({fields: ["pregunta", "respuesta"]}).then(function(){
+				res.redirect('/quizes'); //redireccion a quizes
+				})
+			}
+		}
+	)
 };
