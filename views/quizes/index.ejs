@@ -1,7 +1,11 @@
 <div class='centraTabla'>
 	<table>
 	<% var i; for (i=0; i < quizes.length; i++) { %>        
-		<tr><td><%= i+1+".- " %><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td></tr> 
+		<tr>
+			<td><%= i+1+".- " %></td>
+			<td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td>
+			<td><a href="quizes/<%= quizes[i].id %>/edit"><button>editar</button></a></td>
+		</tr> 
 	<% } %>
 	</table>
 </div>
@@ -11,4 +15,5 @@
 	<input type="text" name="search" value="">
 	<input type="submit" value="Enviar">
 </form>
+<p>&nbsp;</p>
 <p><a href="/quizes/new"><button type="button">Crear pregunta</button></a></p>
