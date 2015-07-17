@@ -80,7 +80,7 @@ exports.create = function(req,res){
 
 //GET /quizes/:id/edit
 exports.edit = function(req,res){
-	var quiz = req.quiz;//autoload de instancia de quiz
+	var quiz = req.quiz;//la instancia quiz se carga en el autoload
 	res.render('quizes/edit', {quiz: quiz, errors: []});
 };
 
@@ -99,7 +99,14 @@ exports.update = function(req,res){
 				req.quiz
 				.save({fields: ["pregunta", "respuesta"] }) // save guarda campos en la base de datos
 				.then(function(){res.redirect('/quizes');});
-			}// redireccion HTTP a lista preguntas
+			}// redireccion a la lista de preguntas
 		}
 	);
+};
+
+//DELETE /quizes/:id
+exports.destroy =  function(req,res){
+	req.quiz.destroy().then(function(){
+		res.redirect('/quizes');
+	}).catch(function(error){next(error)});
 };
