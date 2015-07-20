@@ -1,6 +1,36 @@
-﻿<label for="preg" class="rem">Pregunta:</label>
-<input type="text" id="preg" name="quiz[pregunta]" value="<%= quiz.pregunta %>"/> <p>
-<label for="resp" class="rem">Respuesta:</label>
-<input type="text" id="respg" name="quiz[respuesta]" value="<%= quiz.respuesta %>"/> <p>
-<a href="/quizes"><button type="button">Cancelar</button></a>
- <input type="submit" value="Salvar">
+﻿<tr>
+	<td><label for="preg" class="rem">Pregunta:</label></td>
+	<td><input type="text" id="preg" name="quiz[pregunta]" value="<%= quiz.pregunta %>"/></td>
+</tr>
+
+<tr>
+	<td><label for="resp" class="rem">Respuesta:</label></td>
+	<td><input type="text" id="respg" name="quiz[respuesta]" value="<%= quiz.respuesta %>"/>
+</td>
+</tr>
+
+<tr>
+	
+	<% var opcion ="hola";%>
+	<td><label for="categoria" class="rem">Categoría</label></td>
+	<td>
+
+	
+		<select name="quiz[categoria]">
+			<option value="Otro" <% if(quiz.categoria=="Otro"){%> selected <%}%> >Otro</option>
+			<option value="Humanidades" <% if(quiz.categoria=="Humanidades"){%> selected <%}%> >Humanidades</option>
+			<option value="Ocio" <% if(quiz.categoria=="Ocio"){%> selected <%}%> >Ocio</option>
+			<option value="Ciencia" <% if(quiz.categoria=="Ciencia"){%> selected <%}%> >Ciencia</option>
+			<option value="Tecnología" <% if(quiz.categoria=="Tecnología"){%> selected <%}%> >Tecnología</option>
+			<option value="Geografía" <% if(quiz.categoria=="Geografía"){%> selected <%}%> >Geografía</option>
+		</select>
+	</td>
+</tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr>
+	<td>&nbsp;</td>
+	<td>
+			<a href="/quizes"><button type="button">Cancelar</button></a>
+			<input type="submit" value="Salvar">
+	</td>
+</tr>
