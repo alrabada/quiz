@@ -1,6 +1,7 @@
 <h3>Índice de preguntas:</h3>
 <div class='centraTabla'>
 	<table>
+	<thead>
 	<tr>
 			<td>&nbsp;</td>
 			<td>&nbsp;<strong>Pregunta</strong></td>
@@ -8,6 +9,8 @@
 			<td>&nbsp;</td>
 			<td>&nbsp;</td>
 	</tr>
+	</thead>
+	<tbody>
 	<% var i; for (i=0; i < quizes.length; i++) { %>        
 		<tr>
 			<td><%= i+1+".- " %></td>
@@ -21,12 +24,13 @@
 			</td>
 		</tr> 
 	<% } %>
+	</tbody>
 	</table>
 </div>
 
 <form method="get" action="/quizes">
 	<strong>Busqueda de preguntas<p>
-	<input type="text" name="search" value="">
+	<input type="text" name="search" value="" required>
 	<input type="submit" value="Enviar">
 </form>
 <p>&nbsp;</p>

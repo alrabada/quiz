@@ -1,7 +1,45 @@
-﻿<form method="get" action="/quizes/<%= quiz.id %>/answer">
-	<p><strong>Pregunta:</strong> <%= quiz.pregunta %></p>
-	<input type="text" name="respuesta" value="">
-	<input type="submit" value="Enviar">
-</form>
+﻿<h3>Pregunta:</h3>
+<div class='centraTabla'>
+	<table>
+		<form method="get" action="/quizes/<%= quiz.id %>/answer">
+			<tr>
+				<td><strong>Pregunta:</strong></td>
+				<td><%= quiz.pregunta %></td>
+			</tr>
+			<tr>
+				<td><strong>Respuesta:</strong></td>
+				<td><input type="text" name="respuesta" value="" required></td>
+			<tr>
+			<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><input type="submit" value="Enviar"></td>
+			</tr>
+		</form>
+	</table>
+</div>
 <p>&nbsp;</p>
 <p><a href="/quizes">Volver</a></p>
+<p>&nbsp;</p>
+<p><a href="/quizes/<%= quiz.id %>/comments/new"><button>Nuevo comentario</button></a></p>
+<p><strong>Comentarios:</strong></p>
+<div class='centraTabla'>
+	<table>
+	
+		<%
+			var i = 0;
+			for(index in quiz.Comments){
+			i++;
+			%>
+			<tr>
+				<td>
+					<%= i%>.- &nbsp;
+				</td>
+				<td>
+					<%= quiz.Comments[index].texto%>
+				<td>
+			</tr>
+
+		<%}%>
+	</table>
+</div>

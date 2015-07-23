@@ -40,11 +40,15 @@ nav span {
 	font-size: smaler;
 }
 
+tbody{
+	overflow: auto;
+}
+
 div.centraTabla{
-text-align: center;
+	text-align: center;
 }
 
 div.centraTabla table {
-margin: 0 auto;
-text-align: left;
+	margin: 0 auto;
+	text-align: left;
 }

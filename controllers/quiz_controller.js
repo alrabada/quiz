@@ -2,7 +2,12 @@ var models = require('../models/models.js');
 
 //autoload- factoriza el codigo si ruta incluye :quizId
 exports.load = function(req, res, next, quizId) {
-	models.Quiz.findById(quizId).then(
+	models.Quiz.find(
+		{
+			where:{ id: Number(quizId)},
+			include: [{model: models.Comment}]
+		}
+	).then(
 		function(quiz) {
 			if (quiz) {
 				req.quiz = quiz;
@@ -43,9 +48,9 @@ exports.show = function(req, res) {
 
 // GET /quizes/:id/answer
 exports.answer = function(req, res) {
-	var resultado = 'Incorrecto, "'+req.query.respuesta+'" no es la respuesta correcta';
+	var resultado = 'INCORRECTA, "'+req.query.respuesta+'" no es la respuesta correcta';
 	if ((req.query.respuesta).toUpperCase() === (req.quiz.respuesta).toUpperCase()){
-		resultado = 'Correcto';
+		resultado = 'CORRECTA';
 	}
 	res.render('quizes/answer', { quiz: req.quiz, respuesta: resultado, errors: []});
 };
