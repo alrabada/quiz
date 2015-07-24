@@ -52,3 +52,13 @@ div.centraTabla table {
 	margin: 0 auto;
 	text-align: left;
 }
+
+.fixed {
+    position: fixed;
+    top: 2px;
+    right: 2px;
+	border:2px;
+    width: 150px;
+    border-style: ridge;
+	background-color: #FFF;
+}

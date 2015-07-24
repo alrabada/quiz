@@ -3,7 +3,6 @@
   <head>
 	<meta charset="utf-8">
     <title>Preguntas</title>
-	<link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel='stylesheet' href='/stylesheets/style.css' />
 	<link rel='stylesheet' 
 		type='text/css'
@@ -17,6 +16,14 @@
   <body>
 	<div id="page-wrap">
 		<header class="main" id="h1">
+			<div class="fixed">
+				<%if(!session.user){%>
+					<span class="right"><a href="/login">Login</a></span>
+				<%}else{%>
+					<span class="right"> <%=session.user.username%> <a href="/logout">Logout</a></span>
+				<%}%>
+			</div>
+		
 			<h2>Quiz: El juego de las preguntas</h2>
 		</header>
 		
@@ -29,11 +36,12 @@
 		<section class="main" id="s1">
 			<% if (errors.length){ %>
 				<span id='ErrorMsgs'>
-					Corregir errores:<br/>
+					Se han producido los siguientes errores:<br/>
 					<% for(var i in errors) { %>
 						<span> <%= errors[i].message %> </span><br/>
 					<% } %>
 				</span>
+				<p>&nbsp;</p>
 			<%  } %>
 
 			<%- body %>
