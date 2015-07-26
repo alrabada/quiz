@@ -29,8 +29,9 @@
 		<%
 			var i = 0;
 			for(index in quiz.Comments){
-			i++;
-			%>
+				i++;
+				if(quiz.Comments[index].publicado || session.user){
+		%>
 			<tr>
 				<td>
 					<%= i%>.- &nbsp;
@@ -38,8 +39,17 @@
 				<td>
 					<%= quiz.Comments[index].texto%>
 				<td>
+				<td>
+					<%if(session.user && !quiz.Comments[index].publicado){%>
+						<a href="/quizes/<%= quiz.id %>/comments/<%=quiz.Comments[index].id%>/publish"><button>Publicar</button></a>
+					<%}%>
+				</td>
+				
 			</tr>
 
-		<%}%>
+		<%		
+				}
+			}
+		%>
 	</table>
 </div>
