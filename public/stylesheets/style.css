@@ -11,7 +11,8 @@ a {
 }
 
 #page-wrap {
-	margin:2% auto;
+	margin: 2px;
+	/*margin:2% auto;*/
 	color:white;
 }
 
@@ -55,8 +56,8 @@ div.centraTabla table {
 
 .fixed {
     position: fixed;
-    top: 2px;
-    right: 2px;
+    top: 4px;
+    right: 5px;
 	border:2px;
     width: 150px;
     border-style: ridge;

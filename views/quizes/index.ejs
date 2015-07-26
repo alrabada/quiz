@@ -6,8 +6,10 @@
 			<td>&nbsp;</td>
 			<td>&nbsp;<strong>Pregunta</strong></td>
 			<td>&nbsp;<strong>Categoría</strong></td>
+			<%if(session.user){%>
 			<td>&nbsp;</td>
 			<td>&nbsp;</td>
+			<%}%>
 	</tr>
 	</thead>
 	<tbody>
@@ -16,12 +18,14 @@
 			<td><%= i+1+".- " %></td>
 			<td>&nbsp;<a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a>&nbsp;</td>
 			<td>&nbsp;<%= quizes[i].categoria %>&nbsp;</td>
+			<%if(session.user){%>
 			<td>&nbsp;<a href="quizes/<%= quizes[i].id %>/edit"><button>editar</button></a>&nbsp;</td>
 			<td>
 				<form method="post" action="quizes/<%= quizes[i].id %>?_method=delete">
 					<button type="submit" onClick="return confirm('Borrar: <%= quizes[i].pregunta %>');">borrar</button>
 				</form>
 			</td>
+			<%}%>
 		</tr> 
 	<% } %>
 	</tbody>
@@ -34,4 +38,6 @@
 	<input type="submit" value="Enviar">
 </form>
 <p>&nbsp;</p>
+<%if(session.user){%>
 <p><a href="/quizes/new"><button type="button">Crear pregunta</button></a></p>
+<%}%>
