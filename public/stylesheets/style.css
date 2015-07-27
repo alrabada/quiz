@@ -63,3 +63,7 @@ div.centraTabla table {
     border-style: ridge;
 	background-color: #FFF;
 }
+
+.left-align{
+	text-align:left;
+}

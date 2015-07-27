@@ -31,12 +31,33 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // helpers dinamicos
 app.use(function(req, res, next){
-	//guardar path en session.redir para despues de login
+	// guardar path en session.redir para despues de login
 	if (!req.path.match(/\/login|\/logout/)){
 		req.session.redir = req.path;
 	}
-	//hacer visible req.session en las vistas
+	// hacer visible req.session en las vistas
 	res.locals.session = req.session;
+	next();
+});
+
+
+// tiempo de sesion
+app.use(function(req, res, next) {
+	if(req.session.user){
+		if(!req.session.tiempo){
+			req.session.tiempo=(new Date()).getTime();
+		}
+		else{
+			//if((new Date()).getTime()-req.session.tiempo > 30000){ // 30 segundos
+			if((new Date()).getTime()-req.session.tiempo > 120000){ // 2 minutos
+				delete req.session.user;
+				delete req.session.tiempo;
+			}
+			else{
+				req.session.tiempo=(new Date()).getTime();
+			}
+		}
+	}
 	next();
 });
 

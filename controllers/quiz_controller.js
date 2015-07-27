@@ -19,12 +19,10 @@ exports.load = function(req, res, next, quizId) {
 
 // GET /quizes
 exports.index = function(req, res) {
-	
 	if(req.query.search){
 		var search = "%"+req.query.search+"%";
 		search = search.trim().replace(/\s/g,"%");
 		search = search.toUpperCase();
-		console.log("llego aqui 1");
 		models.Quiz.findAll({where: ["upper(pregunta) like ?", search], order: 'pregunta ASC'}).then(
 			function(quizes) {
 				res.render('quizes/index.ejs', { quizes: quizes, errors: []});
@@ -32,7 +30,6 @@ exports.index = function(req, res) {
 		).catch(function(error) { next(error);})
 	}
 	else{
-		console.log("llego aqui 2");
 		models.Quiz.findAll().then(
 			function(quizes) {
 				res.render('quizes/index.ejs', { quizes: quizes, errors: []});
